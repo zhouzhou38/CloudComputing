@@ -1,0 +1,16 @@
+certifi
+charset-normalizer
+idna
+joblib
+mysql-connector-python
+numpy
+pandas
+pgeocode
+python-dateutil
+pytz
+requests
+scikit-surprise
+scipy
+six
+tzdata
+urllib3

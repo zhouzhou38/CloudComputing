@@ -1,0 +1,23 @@
+name: myenv
+channels:
+  - conda-forge  # Add conda-forge as a priority channel
+  - defaults
+dependencies:
+  - numpy
+  - pandas
+  - scikit-learn
+  - scikit-surprise  # This package is available on conda-forge
+  - pip:
+    - certifi
+    - charset-normalizer
+    - idna
+    - joblib
+    - mysql-connector-python
+    - pgeocode
+    - python-dateutil
+    - pytz
+    - requests
+    - scipy
+    - six
+    - tzdata
+    - urllib3
