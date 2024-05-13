@@ -1,0 +1,33 @@
+# Retrieve the same version of linux
+FROM ubuntu:20.04
+
+# Set env vars
+ENV GLASSFISH_HOME /usr/local
+ENV JAVA_HOME /usr/lib/jvm/jdk1.7.0_80/
+ENV PATH $PATH:$GLASSFISH_HOME/glassfish/bin:$JAVA_HOME/bin
+
+# Copy the necessary things
+COPY glassfish $GLASSFISH_HOME
+COPY archemy.ear $GLASSFISH_HOME
+COPY jdk1.7.0_80 /usr/lib/jvm/jdk1.7.0_80/
+
+# Check Java version
+RUN java -version
+
+# Expose the ports
+EXPOSE 9999 4848
+
+# Increase heap size
+ENV JAVA_OPTS="-Xms2g -Xmx4g"
+
+# Create domain2
+RUN asadmin create-domain --savemasterpassword=false --user=admin --nopassword=true domain2
+
+# Copy over library files from domains/domain1/lib to domains/domain2/lib
+RUN cp -r /usr/local/domains/domain1/lib/*.jar /usr/local/domains/domain2/lib
+
+# Start up domain2
+CMD ["asadmin", "start-domain", "--verbose", "domain2"]
+
+# Deploy archemy.ear
+# CMD ["asadmin", "deploy", "/usr/local/archemy.ear"]
